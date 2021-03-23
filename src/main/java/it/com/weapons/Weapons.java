@@ -1,15 +1,18 @@
 package it.com.weapons;
 
-import java.util.UUID;
+import org.bukkit.event.Listener;
 
-public class Weapons {
 
-    private UUID id;
+
+public class Weapons implements Listener {
+
+    //classe delle armi, probabilmente verrà ignorata
+    private int id;
     private String Description;
     private int experience;
     private int WeaponLevel;
 
-    public Weapons(UUID id, String Description, int experience, int WeaponLevel){
+    public Weapons(int id, String Description, int experience, int WeaponLevel){
         this.id=id;
         this.Description=Description;
         this.experience=experience;
@@ -17,10 +20,10 @@ public class Weapons {
 
     }
 
-    public UUID getId(){
+    public int getId(){
         return id;
     }
-    public void setId(UUID id){
+    public void setId(int id){
         this.id=id;
     }
     public String getDescription(){
@@ -41,5 +44,6 @@ public class Weapons {
     public void setWeaponLevel(int WeaponLevel){
         this.WeaponLevel=WeaponLevel;
     }
+
 }
 

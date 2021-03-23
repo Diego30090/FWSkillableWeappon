@@ -1,21 +1,18 @@
 package it.com;
-import net.md_5.bungee.api.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.*;
-import org.bukkit.event.Event;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
-
 
 public final class FWSkillableWeapon extends JavaPlugin {
+
+
+
 
     @Override
     public void onEnable() {
         // Plugin startup login
         getServer().getConsoleSender().sendMessage(org.bukkit.ChatColor.GREEN + "Inizio Test per i drop a scelta\n\n");
+        this.saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new Events(),this);
-        loadConfig();
+
     }
 
     @Override
@@ -24,24 +21,54 @@ public final class FWSkillableWeapon extends JavaPlugin {
         getServer().getConsoleSender().sendMessage(org.bukkit.ChatColor.RED + "Fine Test per i drop a scelta\n\n");
     }
 
-    public void loadConfig(){
-        getConfig().options().copyDefaults(true);
-        saveConfig();
-    }
 
-    //drop dell'oggetto da parte del mob
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*
-    @EventHandler
-    public void onMobDeath(){
-        if(event.getEntity().getKiller() instanceof Player){
-            if(event.getEntity().getType()== EntityType.CREEPER){
-                event.getDrops().add(new ItemStack(NETHERITE_AXE,1));
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args){
+        if (label.equalsIgnoreCase(("randomblock"))){
+            if (!sender.hasPermission("randomblock.reload")){
+                sender.sendMessage(ChatColor.RED + "You cannot run this command");
+            }
+        if (args.length==0){
+            sender.sendMessage(ChatColor.RED + "Usage: /randomblock reload");
+            if(args.length>0)[
+                    if(args[0].equalsIgnoreCase(("reload"))){
+                        this.reloadConfig();
+                        this.saveConfig();
+                        this.getConfig().;
+                        this.saveDefaultConfig();
+
+                    }
             }
         }
+
+
+    return false;
+
     }
 
-*/
+
+
+/*
+
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -66,5 +93,5 @@ public final class FWSkillableWeapon extends JavaPlugin {
     }
 
 
-
+*/
 }

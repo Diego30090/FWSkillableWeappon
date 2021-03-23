@@ -1,0 +1,13 @@
+drops_chances:
+  sword: 10
+  axe: 10
+  bow: 10
+  crossbow: 20
+
+leveling:
+  mob_experiences:
+    default: 10
+    custom:
+      CREEPER: 100
+      ZOMBIE: 200
+  exp_coefficient: 2
