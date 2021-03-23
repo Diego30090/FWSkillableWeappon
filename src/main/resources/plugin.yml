@@ -1,0 +1,7 @@
+name: FWSkillableWeapon
+version: ${project.version}
+main: it.com.FWSkillableWeapon
+api-version: 1.16
+
+commands:
+  Hello:
