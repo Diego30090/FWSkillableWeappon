@@ -28,7 +28,7 @@ public class Events implements Listener {
 
         int weaponSelect=(int)(EffectivePercentage/WeaponPercentage2);
 
-        if(e instanceof Creeper) {
+        if(e instanceof Monster) {
             if (MobPercentage < probability)
                 e.getLocation().getWorld().dropItem(e.getLocation(), new ItemStack(Weapons[weaponSelect]));
         }
