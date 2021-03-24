@@ -10,4 +10,6 @@ leveling:
     custom:
       CREEPER: 100
       ZOMBIE: 200
+
+
   exp_coefficient: 2

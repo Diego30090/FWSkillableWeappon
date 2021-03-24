@@ -4,12 +4,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class FWSkillableWeapon extends JavaPlugin {
 
 
-
+    public static FWSkillableWeapon plugin;
 
     @Override
     public void onEnable() {
         // Plugin startup login
-        getServer().getConsoleSender().sendMessage(org.bukkit.ChatColor.GREEN + "Inizio Test per i drop a scelta\n\n");
+        plugin =this;
         this.saveDefaultConfig();
         getServer().getPluginManager().registerEvents(new Events(),this);
 
@@ -18,7 +18,7 @@ public final class FWSkillableWeapon extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        getServer().getConsoleSender().sendMessage(org.bukkit.ChatColor.RED + "Fine Test per i drop a scelta\n\n");
+
     }
 
 
