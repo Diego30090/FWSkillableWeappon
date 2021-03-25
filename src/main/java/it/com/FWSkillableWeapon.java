@@ -1,5 +1,10 @@
 package it.com;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 public final class FWSkillableWeapon extends JavaPlugin {
 
@@ -25,9 +30,17 @@ public final class FWSkillableWeapon extends JavaPlugin {
 
 
 
-
-
-
+    @Override
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if(label.equalsIgnoreCase("producer")){
+            if(sender instanceof Player) {
+                //player
+                Player player = (Player) sender;
+                player.sendMessage(ChatColor.GREEN + "The Plugin FWSkillableWeapon has been produced by Diego30090");
+            }
+        }
+        return false;
+    }
 
 
 
@@ -65,33 +78,11 @@ public final class FWSkillableWeapon extends JavaPlugin {
 
     }
 
-
-
-/*
-
-
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-       if(label.equalsIgnoreCase("hello")){
-           if(sender instanceof Player) {
-               //player
-               Player player = (Player) sender;
-               if (player.hasPermission("hello.use")) {
-                   player.sendMessage(ChatColor.LIGHT_PURPLE + "Welcome to the server");
-                   return true;
-               }
-               player.sendMessage(ChatColor.RED + "You don't have permission!");
-               return true;
-           }
-           else{
-               //console
-               sender.sendMessage("Hey console!");
-               return true;
-           }
-       }
-        return false;
-    }
-
-
 */
+
+
+
+
+
+
 }
