@@ -32,7 +32,7 @@ public class CustomItems implements Listener {
         meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
 
 
-        lore.add("");
+        lore.add("Expable Item");
         lore.add("§7XP §f" + (double) 0 + " §7/ §f" +  maxExperience);
         lore.add("§7Level §f" + (double) level);
         meta.setLore(lore);

@@ -23,6 +23,22 @@ public class Config {
 
     public static String getString(String string) {
         updateConfig();
+
         return config.getString(string);
+    }
+
+    public void setDouble(String string, Object newValue) {
+        updateConfig();
+        config.set(string,newValue);
+    }
+
+    public void setBool(String string, Object newValue) {
+        updateConfig();
+         config.set(string,newValue);
+    }
+
+    public void setString(String string, Object newValue) {
+        updateConfig();
+         config.set(string,newValue);
     }
 }

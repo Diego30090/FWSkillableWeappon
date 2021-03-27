@@ -92,13 +92,13 @@ public class Events implements Listener {
                 ArrayList<String> lore = new ArrayList<String>(item.getItemMeta().getLore());
                 ItemMeta meta = item.getItemMeta();
 
-                System.out.println("L'item che ha in mano ha le seguenti statistiche " + String.valueOf(item.getItemMeta().getLore()));
+               // System.out.println("L'item che ha in mano ha le seguenti statistiche " + String.valueOf(item.getItemMeta().getLore()));
                 LevelExperience exp= new LevelExperience();
                 double ItemExp= weapons.returnXP(item);
                 double ItemExpMax= weapons.returnMaxXP(item);
                 double level=weapons.returnLevel(item);
                 double expToAdd= Config.getDouble("leveling.mob_experiences.default");
-                System.out.println("ItemExp: "+ ItemExp + " ItemExpMax: " + ItemExpMax + " Level: " + level + " expToAdd: "+ expToAdd);
+                //System.out.println("ItemExp: "+ ItemExp + " ItemExpMax: " + ItemExpMax + " Level: " + level + " expToAdd: "+ expToAdd);
                 AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage",level, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
 
                     if(ItemExp + expToAdd >ItemExpMax){
@@ -110,7 +110,7 @@ public class Events implements Listener {
                         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
                         meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
                         lore.clear();
-                        lore.add("");
+                        lore.add("Expable Item");
                         lore.add("§7XP §f" + ItemExp + " §7/ §f" +  ItemExpMax);
                         lore.add("§7Level §f" + (double) level);
                         meta.setLore(lore);
@@ -123,7 +123,7 @@ public class Events implements Listener {
 
                         ItemExp+=expToAdd;
                         lore.clear();
-                        lore.add("");
+                        lore.add("Expable Item");
                         lore.add("§7XP §f" + ItemExp + " §7/ §f" +  ItemExpMax);
                         lore.add("§7Level §f" + (double) level);
 
