@@ -1,10 +1,11 @@
 package it.com.generalFunctions;
 
 
+import it.com.FWSkillableWeapon;
 import it.com.config.Config;
+import org.bukkit.entity.Entity;
 
 public class WeaponSelection {
-    Config config = new Config();
     public double[] getPercentage(String[] value, String configValue) {
 
         double[] percentage = new double[value.length];
@@ -46,7 +47,20 @@ public class WeaponSelection {
         return weaponSelect;
     }
 
+    public double expToAdd (Entity e){
+        String standardMob="leveling.mob_experiences.";
+        double addingExperience=0;
+        //i brackets nell'ifelse sono stati aggiunti perchè si
+        if(FWSkillableWeapon.plugin.getConfig().contains(standardMob+"custom." + e.getName().toUpperCase())){
+            addingExperience = Config.getDouble(standardMob+"custom." + e.getName().toUpperCase());
+        }
+        else {
+            addingExperience = Config.getDouble(standardMob + "default");
+        }
 
+
+        return addingExperience;
+    }
 
 
 

@@ -27,13 +27,13 @@ public class Events implements Listener {
     Material[] Weapons= new Material[]{Material.NETHERITE_SWORD, Material.NETHERITE_AXE, Material.BOW,Material.CROSSBOW};
     CustomItems c= new CustomItems();
     String[] value={"sword", "axe", "bow", "crossbow"};
-
+    WeaponSelection w= new WeaponSelection();
 
     @EventHandler
     public void ItemDrop(EntityDeathEvent event){
         double MobPercentage= random.Random();
         LivingEntity e= event.getEntity();
-        WeaponSelection w= new WeaponSelection();
+
 
         double[] percentage = w.getPercentage(value,"drops_chances.");
 
@@ -66,7 +66,8 @@ public class Events implements Listener {
                 double ItemExp= weapons.returnXP(item);
                 double ItemExpMax= weapons.returnMaxXP(item);
                 double level=weapons.returnLevel(item);
-                double expToAdd= Config.getDouble("leveling.mob_experiences.default");
+                double expToAdd= w.expToAdd(entity);
+
                 //System.out.println("ItemExp: "+ ItemExp + " ItemExpMax: " + ItemExpMax + " Level: " + level + " expToAdd: "+ expToAdd);
                 AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage",level, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
 
