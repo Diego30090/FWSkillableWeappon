@@ -7,4 +7,4 @@ commands:
   Producer:
   MobExperience:
     description: Change the given experience from mobs
-    usage: Syntax error! Simply type /<command> [Monster] [newExperience] change the experience given
+    usage: Syntax error! Simply type /<command>[newExperience] [Monster] change the experience given

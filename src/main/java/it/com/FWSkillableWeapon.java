@@ -62,51 +62,50 @@ public final class FWSkillableWeapon extends JavaPlugin {
             if(sender instanceof Player) {
 
                 Player player = (Player) sender;
-                String defaultSetting="leveling.mob_experiences.";
+                if (player.isOp()) {
+                    String defaultSetting = "leveling.mob_experiences.";
 
-                //start check values
-                //end check values
+                    //start check values
+                    //end check values
 
 
+                    if (args.length >= 2) {
+                        player.sendMessage(ChatColor.GREEN + "Command done!");
+                        if (args[1].matches("^[a-zA-Z]*$") && args[0].matches("^[0-9]*$")) {
 
-               if(args.length >=2){
-                   player.sendMessage(ChatColor.GREEN + "Command done!");
-                   if(args[1].matches("^[a-zA-Z]*$")&& args[0].matches("^[0-9]*$")){
-
-                       //start check values
+                            //start check values
                       /*
                        System.out.println("Arguments: " + args[1] + " " + args[0]);
                        player.sendMessage(ChatColor.GREEN + "Argument inserted: " + args[0] + " " + args[1]);
                        */
-                       //end check values
+                            //end check values
 
-                        try {
-                            type=EntityType.valueOf(args[1].toUpperCase());
-                            String config2 = defaultSetting + "custom." + args[1].toUpperCase();
-                            yamlConfiguration.set(config2, Double.valueOf(args[0]));
-                        } catch (IllegalArgumentException e) {
-                            player.sendMessage(ChatColor.GREEN + "The argument you inserted is not a creature!");
-                            //e.printStackTrace(); //add if needed.
+                            try {
+                                type = EntityType.valueOf(args[1].toUpperCase());
+                                String config2 = defaultSetting + "custom." + args[1].toUpperCase();
+                                yamlConfiguration.set(config2, Double.valueOf(args[0]));
+                            } catch (IllegalArgumentException e) {
+                                player.sendMessage(ChatColor.GREEN + "The argument you inserted is not a creature!");
+                                //e.printStackTrace(); //add if needed.
+                            }
+                            try {
+                                yamlConfiguration.save(file);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            player.sendMessage(ChatColor.GREEN + "Wrong Argument Type!");
+                            player.sendMessage(ChatColor.GREEN + "The correct Syntax is /mobExperience [newExpValue] [Monster] ");
                         }
-                       try {
-                               yamlConfiguration.save(file);
-                           } catch (IOException e) {
-                               e.printStackTrace();
-                           }
-                   }
-                   else{
-                       player.sendMessage(ChatColor.GREEN + "Wrong Argument Type!");
-                       player.sendMessage(ChatColor.GREEN + "The correct Syntax is /mobExperience [newExpValue] [Monster] ");
-                   }
-               }
-               else{
-                   player.sendMessage(ChatColor.GREEN + "Missing Arguments!");
-                   player.sendMessage(ChatColor.GREEN + "The correct Syntax is /mobExperience [Monster] [newExpValue]");
-               }
+                    } else {
+                        player.sendMessage(ChatColor.GREEN + "Missing Arguments!");
+                        player.sendMessage(ChatColor.GREEN + "The correct Syntax is /mobExperience [Monster] [newExpValue]");
+                    }
 
 
-                return true;
+                    return true;
 
+                }
             }
         }
         return false;
