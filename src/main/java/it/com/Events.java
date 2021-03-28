@@ -8,16 +8,14 @@ import it.com.weapons.Weapons;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Monster;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -89,6 +87,7 @@ public class Events implements Listener {
                             meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
                             System.out.println("Il danno dall'arco/balestra è rimosso");
                         }
+                        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         lore.clear();
                         lore.add("Expable Item");
                         lore.add("§7XP §f" + ItemExp + " §7/ §f" + ItemExpMax);
@@ -125,6 +124,22 @@ public class Events implements Listener {
             }
         }
 
+    @EventHandler
+    public void zombieDamage(EntityDamageByEntityEvent event){
+        Entity entity= event.getDamager();
+        if (entity instanceof Player) {
+            Weapons weapons = new Weapons();
+            Player player = (Player) entity;
+            ItemStack item = player.getItemInHand();
+            ((Player) event.getDamager()).sendMessage("Player recognised!");
+            if (item.getItemMeta().hasLore()) {
+                if(item.getItemMeta().getLore().contains("Item damage Set!")){
+                    event.setDamage(weapons.returnLevel(item));
+                }
+
+            }
+        }
+    }
 
 }
 
