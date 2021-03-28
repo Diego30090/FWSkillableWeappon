@@ -4,7 +4,7 @@ The requested release is on src/release.
 
 ## Description of the plugin
 
-Once a random Monster is killed, it'll drop a random weapon that can be exped
+Once a random Monster is killed, it'll drop a random weapon that can be exped and leveled up
 
 
 ## Commands
