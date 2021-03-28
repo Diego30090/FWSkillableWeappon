@@ -122,12 +122,14 @@ public class Events implements Listener {
                 Weapons weapons = new Weapons();
                 Player player = (Player) a.getShooter();
                 ItemStack item = player.getItemInHand();
+                //i brackets interni nell'ultimo if ci sono perchè si
+                    if (item.getItemMeta().hasLore()) {
+                        if(item.getItemMeta().getLore().contains("Expable Item")){
+                            e.setDamage(weapons.returnLevel(item));
+                        }
 
-                if (e.getEntity() instanceof Monster) {
+                    }
 
-                    e.setDamage(weapons.returnLevel(item));
-                   // System.out.println("Arrow: " +a+ " Player: " + player + " Item: "+item + " Arrow damage: " + a.getDamage());
-                }
             }
         }
 
