@@ -1,14 +1,17 @@
 package it.com;
 
-import it.com.config.Config;
 import it.com.generalFunctions.LevelExperience;
 import it.com.generalFunctions.Randomizer;
 import it.com.generalFunctions.WeaponSelection;
+import it.com.weapons.CustomItems;
 import it.com.weapons.Weapons;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -19,7 +22,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.UUID;
 
 
@@ -49,38 +51,44 @@ public class Events implements Listener {
     @EventHandler
     public void expWeaponOnDeath(EntityDeathEvent event) {
 
-        // System.out.println("Start evento exping");
         LivingEntity entity = event.getEntity();
-       // Arrow a = (Arrow) event.getEntity();
-        Entity killerEntity = entity.getKiller();
         Player player = entity.getKiller();
         Weapons weapons = new Weapons();
+
         if (entity instanceof Monster) {
-            if (player != null /*||a !=null*/) {
+            if (player != null ) {
                 ItemStack item = player.getItemInHand();
-                //System.out.println("Il nome dell'entità è " +player.getName());
+                System.out.println("Item in mano del player è riconosciuto");
+
+
+
                 if (item.getItemMeta().hasLore()) {
-                    if(item.getItemMeta().getLore().contains(item.getItemMeta().getLore().contains("Expable Item"))) {
+
+                    if(item.getItemMeta().getLore().contains("Expable Item")) {
+
 
                         ArrayList<String> lore = new ArrayList<String>(item.getItemMeta().getLore());
                         ItemMeta meta = item.getItemMeta();
 
-                        // System.out.println("L'item che ha in mano ha le seguenti statistiche " + String.valueOf(item.getItemMeta().getLore()));
+
                         LevelExperience exp = new LevelExperience();
                         double ItemExp = weapons.returnXP(item);
                         double ItemExpMax = weapons.returnMaxXP(item);
                         double level = weapons.returnLevel(item);
                         double expToAdd = w.expToAdd(entity);
-
-                        //System.out.println("ItemExp: "+ ItemExp + " ItemExpMax: " + ItemExpMax + " Level: " + level + " expToAdd: "+ expToAdd);
                         double[] itemStats = exp.newItemAttributes(item, expToAdd);
                         level = itemStats[0];
                         ItemExp = itemStats[1];
                         ItemExpMax = itemStats[2];
 
                         AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage", level, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+
                         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
                         meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
+                        if(item.getType().toString().contains("BOW") || item.getType().toString().contains("CROSSBOW")){
+                            meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
+                            System.out.println("Il danno dall'arco/balestra è rimosso");
+                        }
                         lore.clear();
                         lore.add("Expable Item");
                         lore.add("§7XP §f" + ItemExp + " §7/ §f" + ItemExpMax);
@@ -96,6 +104,7 @@ public class Events implements Listener {
         }
 
     }
+
 
 
         @EventHandler

@@ -1,4 +1,4 @@
-package it.com;
+package it.com.weapons;
 
 import it.com.config.Config;
 import it.com.generalFunctions.LevelExperience;
@@ -26,18 +26,13 @@ public class CustomItems implements Listener {
         int level=1;
         double maxExperience= expManager.ExperiencetoLevel(Config.getDouble("leveling.exp_coefficient"),level);
         AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage",level-1, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-
-
         meta.setUnbreakable(true);
         meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
-
-
         lore.add("Expable Item");
         lore.add("§7XP §f" + (double) 0 + " §7/ §f" +  maxExperience);
         lore.add("§7Level §f" + (double) level);
         meta.setLore(lore);
         item.setItemMeta(meta);
-
         e.getLocation().getWorld().dropItem(e.getLocation(), new ItemStack(item));
 
     }

@@ -34,7 +34,6 @@ public class LevelExperience {
                 level += 1;
                 ItemExp = ItemExp -ItemExpMax;
                 ItemExpMax = ExperiencetoLevel(Config.getDouble("leveling.exp_coefficient"), level);
-
             }
         }while(ItemExp >ItemExpMax);
 

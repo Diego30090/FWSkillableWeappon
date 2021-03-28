@@ -12,7 +12,6 @@ public class WeaponSelection {
         for (int i = 0; i < percentage.length; i++) {
             percentage[i] = Config.getDouble(configValue+value[i]);
         }
-
         return percentage;
     }
 

@@ -14,7 +14,6 @@ public class Randomizer {
     public double Random(double maxValue){
         double delta;
         delta = Math.random() * maxValue;
-
         delta = (float) delta;
         return delta;
     }
