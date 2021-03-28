@@ -9,13 +9,18 @@ Once a random Monster is killed, it'll drop a random weapon that can be exped
 
 ## Commands
 
-/producer
+`/producer`
+```
 it shows who developed the plugin
-
-/setCoefficient [newCoefficient]
+```
+`/setCoefficient [newCoefficient]`
+```
 It set the coefficient for weapon leveling.
 The permission required is to be opped
+```
 
-/mobExperience [newExperience] [Monster]
+`/mobExperience [newExperience] [Monster]`
+```
 It sets the experience given for a specific Monster
 The permission required is to be opped
+```
