@@ -8,13 +8,11 @@ import it.com.weapons.Weapons;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.entity.Arrow;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Monster;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -53,57 +51,87 @@ public class Events implements Listener {
 
         // System.out.println("Start evento exping");
         LivingEntity entity = event.getEntity();
+        Entity killerEntity = entity.getKiller();
         Player player = entity.getKiller();
         Weapons weapons = new Weapons();
         if (entity instanceof Monster) {
-            if (player != null) {
+            if (player != null ||killerEntity instanceof Arrow) {
                 ItemStack item = player.getItemInHand();
                 //System.out.println("Il nome dell'entità è " +player.getName());
                 if (item.getItemMeta().hasLore()) {
-                    ArrayList<String> lore = new ArrayList<String>(item.getItemMeta().getLore());
-                    ItemMeta meta = item.getItemMeta();
+                    if(item.getItemMeta().getLore().contains(item.getItemMeta().getLore().contains("Expable Item"))) {
 
-                    // System.out.println("L'item che ha in mano ha le seguenti statistiche " + String.valueOf(item.getItemMeta().getLore()));
-                    LevelExperience exp = new LevelExperience();
-                    double ItemExp = weapons.returnXP(item);
-                    double ItemExpMax = weapons.returnMaxXP(item);
-                    double level = weapons.returnLevel(item);
-                    double expToAdd = w.expToAdd(entity);
+                        ArrayList<String> lore = new ArrayList<String>(item.getItemMeta().getLore());
+                        ItemMeta meta = item.getItemMeta();
 
-                    //System.out.println("ItemExp: "+ ItemExp + " ItemExpMax: " + ItemExpMax + " Level: " + level + " expToAdd: "+ expToAdd);
-                    double[] itemStats = exp.newItemAttributes(item, expToAdd);
-                    level = itemStats[0];
-                    ItemExp = itemStats[1];
-                    ItemExpMax = itemStats[2];
+                        // System.out.println("L'item che ha in mano ha le seguenti statistiche " + String.valueOf(item.getItemMeta().getLore()));
+                        LevelExperience exp = new LevelExperience();
+                        double ItemExp = weapons.returnXP(item);
+                        double ItemExpMax = weapons.returnMaxXP(item);
+                        double level = weapons.returnLevel(item);
+                        double expToAdd = w.expToAdd(entity);
 
-                    AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage", level, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-                    meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
-                    meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
-                    lore.clear();
-                    lore.add("Expable Item");
-                    lore.add("§7XP §f" + ItemExp + " §7/ §f" + ItemExpMax);
-                    lore.add("§7Level §f" + (double) level);
-                    meta.setLore(lore);
-                    item.setItemMeta(meta);
-                    meta.setLore(lore);
-                    item.setItemMeta(meta);
+                        //System.out.println("ItemExp: "+ ItemExp + " ItemExpMax: " + ItemExpMax + " Level: " + level + " expToAdd: "+ expToAdd);
+                        double[] itemStats = exp.newItemAttributes(item, expToAdd);
+                        level = itemStats[0];
+                        ItemExp = itemStats[1];
+                        ItemExpMax = itemStats[2];
 
+                        AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage", level, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+                        meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
+                        meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
+                        lore.clear();
+                        lore.add("Expable Item");
+                        lore.add("§7XP §f" + ItemExp + " §7/ §f" + ItemExpMax);
+                        lore.add("§7Level §f" + (double) level);
+                        meta.setLore(lore);
+                        item.setItemMeta(meta);
+                        meta.setLore(lore);
+                        item.setItemMeta(meta);
+
+                    }
                 }
             }
         }
 
     }
-
+    /*
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
         Weapons wea = new Weapons();
-        if (e.getDamager() instanceof Arrow) {
-            Arrow arrow = (Arrow)e.getDamager();
-            if (arrow.getShooter() instanceof Player) {
-               // e.setDamage();
+        Player player = (Player) e.getEntity();
+        ItemStack item = player.getItemInHand();
+        if(item.getItemMeta().hasLore()){
+            if(item.getItemMeta().getLore().contains("Expable Item")) {
+                if (e.getDamager() instanceof Arrow) {
+                    Arrow arrow = (Arrow) e.getDamager();
+                    if (arrow.getShooter() instanceof Player) {
+                        e.setDamage(wea.returnLevel(item));
+                    }
+                }
             }
+
         }
     }
+    */
+
+        @EventHandler
+        public void onArrowHit(EntityDamageByEntityEvent e) {
+            if (e.getCause().equals(EntityDamageEvent.DamageCause.PROJECTILE)) {
+                Arrow a = (Arrow) e.getDamager();
+                Weapons weapons = new Weapons();
+                Player player = (Player) a.getShooter();
+                ItemStack item = player.getItemInHand();
+
+                if (e.getEntity() instanceof Monster) {
+
+                    e.setDamage(weapons.returnLevel(item));
+                   // System.out.println("Arrow: " +a+ " Player: " + player + " Item: "+item + " Arrow damage: " + a.getDamage());
+                }
+            }
+        }
+
+
 }
 
 
