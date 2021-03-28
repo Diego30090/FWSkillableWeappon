@@ -7,4 +7,7 @@ commands:
   Producer:
   MobExperience:
     description: Change the given experience from mobs
-    usage: Syntax error! Simply type /<command>[newExperience] [Monster] change the experience given
+    usage: Syntax error! Simply type /<command> [newExperience] [Monster] change the experience given
+  setCoefficient:
+    description: Change the coefficient of exp Per Level
+    usage: Syntax error! Simply type /<command> [newCoefficient] change the coefficient given

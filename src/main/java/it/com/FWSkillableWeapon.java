@@ -46,6 +46,46 @@ public final class FWSkillableWeapon extends JavaPlugin {
             }
         }
 
+
+        if(label.equalsIgnoreCase("setCoefficient")) {
+            yamlConfiguration = yamlConfiguration.loadConfiguration(file);
+            EntityType type = null;
+
+
+            if (sender instanceof Player) {
+
+                Player player = (Player) sender;
+                if (player.isOp()) {
+                    String defaultSetting = "leveling.exp_coefficient";
+                    if (args.length >= 1) {
+
+                        if (args[0].matches("^[0-9]*$")) {
+                            try {
+                                yamlConfiguration.set(defaultSetting, Double.valueOf(args[0]));
+                                player.sendMessage(ChatColor.GREEN + "Command done!");
+                            } catch (IllegalArgumentException e) {
+                                player.sendMessage(ChatColor.RED + "The argument you inserted is not a number!");
+                            }
+                            try {
+                                yamlConfiguration.save(file);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            player.sendMessage(ChatColor.RED + "Wrong Argument Type!");
+                            player.sendMessage(ChatColor.RED + "The correct Syntax is /setCoefficient [newCoefficient] ");
+                        }
+                    } else {
+                        player.sendMessage(ChatColor.RED + "Missing Arguments!");
+                        player.sendMessage(ChatColor.RED + "The correct Syntax is /setCoefficient [newCoefficient]");
+                    }
+                    return true;
+                }
+            }
+        }
+
+
+
         if(label.equalsIgnoreCase("mobExperience")){
             yamlConfiguration = yamlConfiguration.loadConfiguration(file);
             EntityType type= null;
@@ -57,14 +97,15 @@ public final class FWSkillableWeapon extends JavaPlugin {
                 if (player.isOp()) {
                     String defaultSetting = "leveling.mob_experiences.";
                     if (args.length >= 2) {
-                        player.sendMessage(ChatColor.GREEN + "Command done!");
+
                         if (args[1].matches("^[a-zA-Z]*$") && args[0].matches("^[0-9]*$")) {
                             try {
                                 type = EntityType.valueOf(args[1].toUpperCase());
                                 String config2 = defaultSetting + "custom." + args[1].toUpperCase();
                                 yamlConfiguration.set(config2, Double.valueOf(args[0]));
+                                player.sendMessage(ChatColor.GREEN + "Command done!");
                             } catch (IllegalArgumentException e) {
-                                player.sendMessage(ChatColor.GREEN + "The argument you inserted is not a creature!");
+                                player.sendMessage(ChatColor.RED + "The argument you inserted is not a creature!");
                             }
                             try {
                                 yamlConfiguration.save(file);
@@ -72,18 +113,21 @@ public final class FWSkillableWeapon extends JavaPlugin {
                                 e.printStackTrace();
                             }
                         } else {
-                            player.sendMessage(ChatColor.GREEN + "Wrong Argument Type!");
-                            player.sendMessage(ChatColor.GREEN + "The correct Syntax is /mobExperience [newExpValue] [Monster] ");
+                            player.sendMessage(ChatColor.RED + "Wrong Argument Type!");
+                            player.sendMessage(ChatColor.RED + "The correct Syntax is /mobExperience [newExpValue] [Monster] ");
                         }
                     } else {
-                        player.sendMessage(ChatColor.GREEN + "Missing Arguments!");
-                        player.sendMessage(ChatColor.GREEN + "The correct Syntax is /mobExperience [Monster] [newExpValue]");
+                        player.sendMessage(ChatColor.RED + "Missing Arguments!");
+                        player.sendMessage(ChatColor.RED + "The correct Syntax is /mobExperience [newExpValue] [Monster]");
                     }
                     return true;
                 }
             }
         }
         return false;
+
+
+
     }
 
 
