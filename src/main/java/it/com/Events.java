@@ -56,7 +56,6 @@ public class Events implements Listener {
         if (entity instanceof Monster) {
             if (player != null ) {
                 ItemStack item = player.getItemInHand();
-                System.out.println("Item in mano del player è riconosciuto");
 
 
 
@@ -85,7 +84,6 @@ public class Events implements Listener {
                         meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
                         if(item.getType().toString().contains("BOW") || item.getType().toString().contains("CROSSBOW")){
                             meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
-                            System.out.println("Il danno dall'arco/balestra è rimosso");
                         }
                         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                         lore.clear();
@@ -131,9 +129,8 @@ public class Events implements Listener {
             Weapons weapons = new Weapons();
             Player player = (Player) entity;
             ItemStack item = player.getItemInHand();
-            ((Player) event.getDamager()).sendMessage("Player recognised!");
             if (item.getItemMeta().hasLore()) {
-                if(item.getItemMeta().getLore().contains("Item damage Set!")){
+                if(item.getItemMeta().getLore().contains("Expable Item")){
                     event.setDamage(weapons.returnLevel(item));
                 }
 
