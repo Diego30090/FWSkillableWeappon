@@ -51,11 +51,12 @@ public class Events implements Listener {
 
         // System.out.println("Start evento exping");
         LivingEntity entity = event.getEntity();
+       // Arrow a = (Arrow) event.getEntity();
         Entity killerEntity = entity.getKiller();
         Player player = entity.getKiller();
         Weapons weapons = new Weapons();
         if (entity instanceof Monster) {
-            if (player != null ||killerEntity instanceof Arrow) {
+            if (player != null /*||a !=null*/) {
                 ItemStack item = player.getItemInHand();
                 //System.out.println("Il nome dell'entità è " +player.getName());
                 if (item.getItemMeta().hasLore()) {
@@ -95,25 +96,7 @@ public class Events implements Listener {
         }
 
     }
-    /*
-    @EventHandler
-    public void onEntityDamageByEntity(EntityDamageByEntityEvent e) {
-        Weapons wea = new Weapons();
-        Player player = (Player) e.getEntity();
-        ItemStack item = player.getItemInHand();
-        if(item.getItemMeta().hasLore()){
-            if(item.getItemMeta().getLore().contains("Expable Item")) {
-                if (e.getDamager() instanceof Arrow) {
-                    Arrow arrow = (Arrow) e.getDamager();
-                    if (arrow.getShooter() instanceof Player) {
-                        e.setDamage(wea.returnLevel(item));
-                    }
-                }
-            }
 
-        }
-    }
-    */
 
         @EventHandler
         public void onArrowHit(EntityDamageByEntityEvent e) {
