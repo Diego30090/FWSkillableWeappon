@@ -66,6 +66,7 @@ public class Events implements Listener {
                         double level = itemStats[0];
                         AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage", level, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
 
+
                         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
                         meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
                         if(item.getType().toString().contains("BOW") || item.getType().toString().contains("CROSSBOW")){
