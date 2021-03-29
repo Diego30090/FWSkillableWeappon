@@ -32,10 +32,7 @@ public class WeaponSelection {
         double weaponPercentage = 0;
 
         double effectiveValue = random.Random(total);
-        for(
-                int i = 0;
-                i<value.length;i++)
-        {
+        for(int i = 0;i<value.length;i++) {
             if (i == 0) weaponPercentage = 0;
             if (effectiveValue <= weaponPercentage + percentage[i]) {
                 weaponSelect = i;

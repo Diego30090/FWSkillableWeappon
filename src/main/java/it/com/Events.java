@@ -34,11 +34,8 @@ public class Events implements Listener {
     public void ItemDrop(EntityDeathEvent event) {
         double MobPercentage = random.Random();
         LivingEntity e = event.getEntity();
-
         double[] percentage = w.getPercentage(value, "drops_chances.");
-
         double total = w.getTotalPercentage(percentage);
-
         int weaponSelect = w.weaponSelection(value, percentage, total);
         if (e instanceof Monster) {
             if (MobPercentage < total)
@@ -56,42 +53,25 @@ public class Events implements Listener {
         if (entity instanceof Monster) {
             if (player != null ) {
                 ItemStack item = player.getItemInHand();
-
-
-
                 if (item.getItemMeta().hasLore()) {
-
                     if(item.getItemMeta().getLore().contains("Expable Item")) {
-
-
                         ArrayList<String> lore = new ArrayList<String>(item.getItemMeta().getLore());
                         ItemMeta meta = item.getItemMeta();
-
-
                         LevelExperience exp = new LevelExperience();
-                        double ItemExp = weapons.returnXP(item);
-                        double ItemExpMax = weapons.returnMaxXP(item);
-                        double level = weapons.returnLevel(item);
                         double expToAdd = w.expToAdd(entity);
                         double[] itemStats = exp.newItemAttributes(item, expToAdd);
-                        level = itemStats[0];
-                        ItemExp = itemStats[1];
-                        ItemExpMax = itemStats[2];
-
+                        double ItemExp = itemStats[1];
+                        double ItemExpMax = itemStats[2];
+                        double level = itemStats[0];
                         AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage", level, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-
                         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
-                        meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
-                        if(item.getType().toString().contains("BOW") || item.getType().toString().contains("CROSSBOW")){
-                            meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
-                        }
                         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                        //lore to set
                         lore.clear();
                         lore.add("Expable Item");
                         lore.add("§7XP §f" + ItemExp + " §7/ §f" + ItemExpMax);
                         lore.add("§7Level §f" + (double) level);
-                        meta.setLore(lore);
-                        item.setItemMeta(meta);
+                        //effective lore and meta setting
                         meta.setLore(lore);
                         item.setItemMeta(meta);
 
@@ -116,14 +96,12 @@ public class Events implements Listener {
                         if(item.getItemMeta().getLore().contains("Expable Item")){
                             e.setDamage(weapons.returnLevel(item));
                         }
-
                     }
-
             }
         }
 
     @EventHandler
-    public void zombieDamage(EntityDamageByEntityEvent event){
+    public void onPlayerDamage(EntityDamageByEntityEvent event){
         Entity entity= event.getDamager();
         if (entity instanceof Player) {
             Weapons weapons = new Weapons();

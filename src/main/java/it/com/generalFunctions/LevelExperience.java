@@ -2,9 +2,6 @@ package it.com.generalFunctions;
 
 import it.com.config.Config;
 import it.com.weapons.Weapons;
-import org.bukkit.attribute.Attribute;
-import org.bukkit.entity.Item;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class LevelExperience {

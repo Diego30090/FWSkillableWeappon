@@ -23,7 +23,6 @@ public class Config {
 
     public static String getString(String string) {
         updateConfig();
-
         return config.getString(string);
     }
 
