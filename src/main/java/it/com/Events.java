@@ -32,11 +32,14 @@ public class Events implements Listener {
 
     @EventHandler
     public void ItemDrop(EntityDeathEvent event) {
+        //start declaring stuff
         double MobPercentage = random.Random();
         LivingEntity e = event.getEntity();
         double[] percentage = w.getPercentage(value, "drops_chances.");
         double total = w.getTotalPercentage(percentage);
         int weaponSelect = w.weaponSelection(value, percentage, total);
+        //end declaring stuff
+        
         if (e instanceof Monster) {
             if (MobPercentage < total)
                 c.ItemStarter(Weapons[weaponSelect], e);
@@ -45,16 +48,16 @@ public class Events implements Listener {
 
     @EventHandler
     public void expWeaponOnDeath(EntityDeathEvent event) {
-
+        //start declaring stuff
         LivingEntity entity = event.getEntity();
         Player player = entity.getKiller();
-        Weapons weapons = new Weapons();
-
+        //start check
         if (entity instanceof Monster) {
             if (player != null ) {
                 ItemStack item = player.getItemInHand();
                 if (item.getItemMeta().hasLore()) {
                     if(item.getItemMeta().getLore().contains("Expable Item")) {
+                      //end check
                         ItemMeta meta = item.getItemMeta();
                         ArrayList<String> lore = new ArrayList<String>(meta.getLore());
 
@@ -65,8 +68,8 @@ public class Events implements Listener {
                         double ItemExpMax = itemStats[2];
                         double level = itemStats[0];
                         AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage", level, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
-
-
+                        //end declaring stuff
+                        //start using stuff
                         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
                         meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
                         if(item.getType().toString().contains("BOW") || item.getType().toString().contains("CROSSBOW")){
@@ -80,7 +83,7 @@ public class Events implements Listener {
                         //effective lore and meta setting
                         meta.setLore(lore);
                         item.setItemMeta(meta);
-
+                        //end declaring stuff
                     }
                 }
             }
@@ -93,31 +96,31 @@ public class Events implements Listener {
         @EventHandler
         public void onArrowHit(EntityDamageByEntityEvent e) {
             if (e.getCause().equals(EntityDamageEvent.DamageCause.PROJECTILE)) {
+                //start declaring stuff
                 Arrow a = (Arrow) e.getDamager();
                 Weapons weapons = new Weapons();
                 Player player = (Player) a.getShooter();
                 ItemStack item = player.getItemInHand();
-                //i brackets interni nell'ultimo if ci sono perchè si
+                //end declaring stuff
                     if (item.getItemMeta().hasLore()) {
-                        if(item.getItemMeta().getLore().contains("Expable Item")){
+                        if(item.getItemMeta().getLore().contains("Expable Item"))
                             e.setDamage(weapons.returnLevel(item));
-                        }
                     }
             }
         }
 
     @EventHandler
     public void onPlayerDamage(EntityDamageByEntityEvent event){
+       //start declaring stuff
         Entity entity= event.getDamager();
         if (entity instanceof Player) {
             Weapons weapons = new Weapons();
             Player player = (Player) entity;
             ItemStack item = player.getItemInHand();
+            //end declaring stuff
             if (item.getItemMeta().hasLore()) {
-                if(item.getItemMeta().getLore().contains("Expable Item")){
+                if(item.getItemMeta().getLore().contains("Expable Item"))
                     event.setDamage(weapons.returnLevel(item));
-                }
-
             }
         }
     }

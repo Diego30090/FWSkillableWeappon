@@ -17,12 +17,14 @@ public class CustomItems implements Listener {
 
 
     public void ItemStarter(Material weapon, LivingEntity e){
+        // start declaring stuff
         ItemStack item= new ItemStack(weapon,1);
         ItemMeta meta = item.getItemMeta();
         LevelExperience expManager=new LevelExperience();
         ArrayList<String> lore = new ArrayList<String>();
         int level=1;
         double maxExperience= expManager.ExperiencetoLevel(Config.getDouble("leveling.exp_coefficient"),level);
+        // end declaring stuff
         meta.setUnbreakable(true);
         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

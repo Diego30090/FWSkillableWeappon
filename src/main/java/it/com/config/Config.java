@@ -16,28 +16,5 @@ public class Config {
         return config.getDouble(string);
     }
 
-    public static boolean getBool(String string) {
-        updateConfig();
-        return config.getBoolean(string);
-    }
 
-    public static String getString(String string) {
-        updateConfig();
-        return config.getString(string);
-    }
-
-    public void setDouble(String string, Object newValue) {
-        updateConfig();
-        config.set(string,newValue);
-    }
-
-    public void setBool(String string, Object newValue) {
-        updateConfig();
-         config.set(string,newValue);
-    }
-
-    public void setString(String string, Object newValue) {
-        updateConfig();
-         config.set(string,newValue);
-    }
 }
