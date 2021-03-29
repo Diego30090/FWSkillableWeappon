@@ -55,8 +55,9 @@ public class Events implements Listener {
                 ItemStack item = player.getItemInHand();
                 if (item.getItemMeta().hasLore()) {
                     if(item.getItemMeta().getLore().contains("Expable Item")) {
-                        ArrayList<String> lore = new ArrayList<String>(item.getItemMeta().getLore());
                         ItemMeta meta = item.getItemMeta();
+                        ArrayList<String> lore = new ArrayList<String>(meta.getLore());
+
                         LevelExperience exp = new LevelExperience();
                         double expToAdd = w.expToAdd(entity);
                         double[] itemStats = exp.newItemAttributes(item, expToAdd);
@@ -64,8 +65,12 @@ public class Events implements Listener {
                         double ItemExpMax = itemStats[2];
                         double level = itemStats[0];
                         AttributeModifier modifier = new AttributeModifier(UUID.randomUUID(), "generic.attackDamage", level, AttributeModifier.Operation.ADD_NUMBER, EquipmentSlot.HAND);
+
                         meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
-                        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+                        meta.addAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE, modifier);
+                        if(item.getType().toString().contains("BOW") || item.getType().toString().contains("CROSSBOW")){
+                            meta.removeAttributeModifier(Attribute.GENERIC_ATTACK_DAMAGE);
+                        }
                         //lore to set
                         lore.clear();
                         lore.add("Expable Item");
